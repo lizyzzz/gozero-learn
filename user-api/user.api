@@ -1,0 +1,52 @@
+syntax = "v1"
+
+type RegisterReq {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type RegisterRsp {}
+
+type LoginReq {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginRsp {
+	Token string `json:"token"`
+}
+
+type UserInfoResp {
+	Username string `json:"username"`
+	Id       int64  `json:"id"`
+}
+
+@server (
+	// 代表当前 service 的代码会放在 account 目录下
+	group: account
+	// 路由前缀
+	prefix: v1
+)
+service user-api {
+	// 用户服务 handler 中的函数名称
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterRsp)
+
+	@handler login
+	post /user/login (LoginReq) returns (LoginRsp)
+}
+
+@server (
+	// 代表当前 service 的代码会放在 account 目录下
+	group: account
+	// 路由前缀
+	prefix: v1
+	// 开启jwt认证
+	jwt: Auth
+)
+service user-api {
+	// 用户服务 handler 中的函数名称
+	@handler getUserInfo
+	get /user/info returns (UserInfoResp)
+}
+

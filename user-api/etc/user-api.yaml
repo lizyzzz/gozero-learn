@@ -1,0 +1,17 @@
+Name: user-api
+Host: 0.0.0.0
+Port: 8888
+mysqlConfig:
+  datasource: "root:12345678@tcp(127.0.0.1:3306)/zero?charset=utf8mb4&parseTime=True&loc=Local"
+  connectTimeout: 10
+auth:
+  accessSecret: "secret123456"
+  expire: 86400
+redisConfig:
+  Host: "127.0.0.1:6379"
+  Pass: ""
+  Type: "node"
+  Tls: false
+  NonBlock: false
+  PingTimeout: 1s
+
